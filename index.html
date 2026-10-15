@@ -1,10 +1,11 @@
+html
 <!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Pip's Rescue</title>
 <!-- Telegram WebApp SDK -->
 <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
 <!-- Adsgram SDK -->
-
+<script src="https://sad.adsgram.ai/js/sad.min.js"></script>
 
 <!-- RichAds SDK -->
 <script src="https://richinfo.co/richpartners/telegram/js/tg-ob.js"></script>
@@ -116,9 +117,9 @@ button{font-family:inherit;color:inherit}
 .btn-ghost:active{transform:translateY(2px)}
 .btn-ghost.gold-border{border:1.5px solid rgba(255,201,74,0.45);color:var(--gold);background:linear-gradient(180deg,#342777,#231956)}
 .round-btn:focus-visible,.btn-big:focus-visible,.btn-ghost:focus-visible,.tool:focus-visible,.node:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-.coin-pill{display:flex;align-items:center;gap:6px;background:var(--ink-2);border:2px solid rgba(255,255,255,.08);border-radius:999px;padding:6px 14px 6px 8px;font-family:var(--font-display);font-weight:800;font-size:18px;font-variant-numeric:tabular-nums;cursor:pointer}
+.coin-pill{display:flex;align-items:center;gap:6px;background:var(--ink-2);border:2px solid rgba(255,255,255,.08);border-radius:999px;padding:6px 14px 6px 8px;font-family:var(--font-display);font-weight:800;font-size:18px;font-variant-numeric:tabular-nums;cursor:pointer;flex-shrink:0}
 .coin-pill:active{transform:scale(0.96)}
-.coin{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff1a8,var(--gold) 55%,var(--gold-d));box-shadow:inset 0 0 0 2px rgba(120,70,0,.35)}
+.coin{width:22px;height:22px;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff1a8,var(--gold) 55%,var(--gold-d));box-shadow:inset 0 0 0 2px rgba(120,70,0,.35);flex-shrink:0}
 
 /* Home Screen */
 .home-top{display:flex;justify-content:space-between;align-items:center}
@@ -146,13 +147,15 @@ button{font-family:inherit;color:inherit}
 @keyframes hop{0%,100%{margin-top:-30px}50%{margin-top:-40px}}
 
 /* Play Screen */
-.hud{display:flex;align-items:stretch;gap:8px}
-.goals{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:4px 12px;align-items:center;background:var(--ink-2);border-radius:14px;padding:4px 10px;border:2px solid rgba(255,255,255,.07);min-height:44px}
-.chip{display:flex;align-items:center;gap:6px;font-family:var(--font-display);font-weight:800;font-size:20px;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
-.chip canvas{width:34px;height:34px;display:block}
+.hud{display:flex;align-items:stretch;gap:6px}
+.hud .coin-pill{padding:4px 10px 4px 7px;font-size:16px;align-self:stretch;height:44px;display:flex;align-items:center}
+.hud .coin-pill .coin{width:18px;height:18px}
+.goals{flex:1;min-width:0;display:flex;flex-wrap:wrap;gap:4px 8px;align-items:center;background:var(--ink-2);border-radius:14px;padding:4px 8px;border:2px solid rgba(255,255,255,.07);min-height:44px}
+.chip{display:flex;align-items:center;gap:4px;font-family:var(--font-display);font-weight:800;font-size:18px;line-height:1;font-variant-numeric:tabular-nums;white-space:nowrap}
+.chip canvas{width:32px;height:32px;display:block}
 .chip.done b{color:var(--good)}
-.moves{flex:none;width:72px;border-radius:14px;background:linear-gradient(#ffd566,#f2a431);color:#4a2a05;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 0 #a66a12;padding:2px 0}
-.moves .n{font-family:var(--font-display);font-weight:800;font-size:28px;line-height:1}
+.moves{flex:none;width:68px;border-radius:14px;background:linear-gradient(#ffd566,#f2a431);color:#4a2a05;display:flex;flex-direction:column;align-items:center;justify-content:center;box-shadow:0 3px 0 #a66a12;padding:2px 0}
+.moves .n{font-family:var(--font-display);font-weight:800;font-size:26px;line-height:1}
 .moves .l{font-size:10px;letter-spacing:.1em;text-transform:uppercase;font-weight:800}
 .moves .s{font-size:10px;font-weight:800;opacity:.75;font-variant-numeric:tabular-nums}
 .moves.low{background:linear-gradient(#ff8f80,#e5463a);color:#fff;box-shadow:0 3px 0 #8f1f16;animation:pulse .7s ease-in-out infinite}
@@ -175,15 +178,15 @@ button{font-family:inherit;color:inherit}
    ===================================================================== */
 .wallet-head{display:flex;align-items:center;gap:10px}
 .wallet-head h2{margin:0;font-family:var(--font-display);font-weight:800;font-size:24px;flex:1}
-.wallet-scroll{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-right:2px;scrollbar-width:thin}
+.wallet-scroll{flex:1;min-height:0;overflow-y:auto;display:flex;flex-direction:column;gap:14px;padding-right:2px;padding-bottom:34px;scrollbar-width:thin}
 
-.wallet-card{background:linear-gradient(180deg,#2b2064 0%,#1f174a 100%);border:2px solid rgba(255,201,74,0.25);border-radius:20px;padding:16px;box-shadow:0 10px 24px rgba(0,0,0,0.35);position:relative;overflow:hidden}
+.wallet-card{flex-shrink:0;background:linear-gradient(180deg,#2b2064 0%,#1f174a 100%);border:2px solid rgba(255,201,74,0.25);border-radius:20px;padding:16px;box-shadow:0 10px 24px rgba(0,0,0,0.35);position:relative}
 .wallet-card.notice{background:linear-gradient(135deg,rgba(43,32,100,0.95),rgba(25,17,60,0.95));border-color:rgba(91,227,161,0.4)}
 .wallet-card-header{display:flex;align-items:center;gap:10px;margin-bottom:8px}
 .wallet-card-icon{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:rgba(255,201,74,0.18);color:var(--gold);font-size:18px;flex-shrink:0}
 .wallet-card-icon.green{background:rgba(91,227,161,0.2);color:var(--good)}
 .wallet-card-title{font-family:var(--font-display);font-weight:800;font-size:18px;color:var(--cream);margin:0}
-.notice-text{margin:0;font-size:13px;line-height:1.45;color:var(--muted);font-weight:600}
+.notice-text{margin:0;font-size:13px;line-height:1.45;color:var(--muted);font-weight:600;word-break:break-word}
 .notice-text strong{color:var(--gold)}
 
 .balance-box{display:flex;align-items:center;justify-content:space-between;padding:12px 16px;background:rgba(19,15,46,0.65);border-radius:14px;margin-bottom:12px;border:1px solid rgba(255,255,255,0.06)}
@@ -212,10 +215,10 @@ button{font-family:inherit;color:inherit}
 .history-empty{text-align:center;padding:20px 10px;font-size:13px;color:var(--muted);font-weight:600}
 
 /* Modal */
-.overlay{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:16px;background:rgba(14,9,36,.8);backdrop-filter:blur(3px)}
-.sheet{position:relative;width:min(400px,100%);max-height:100%;overflow:auto;background:linear-gradient(#3a2e86,#251c60);border:3px solid var(--gold);border-radius:28px;padding:34px 18px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 0 0 3px rgba(255,255,255,.06);animation:pop .28s cubic-bezier(.2,1.3,.4,1)}
+.overlay{position:fixed;inset:0;z-index:20;display:grid;place-items:center;padding:32px 16px 16px;background:rgba(14,9,36,.8);backdrop-filter:blur(3px);overflow-y:auto}
+.sheet{position:relative;width:min(400px,100%);max-height:none;overflow:visible;background:linear-gradient(#3a2e86,#251c60);border:3px solid var(--gold);border-radius:28px;padding:34px 18px 18px;display:flex;flex-direction:column;gap:12px;box-shadow:0 24px 60px rgba(0,0,0,.55),inset 0 0 0 3px rgba(255,255,255,.06);animation:pop .28s cubic-bezier(.2,1.3,.4,1);margin-top:16px;margin-bottom:16px}
 @keyframes pop{from{transform:scale(.85);opacity:0}}
-.ribbon{position:absolute;left:50%;top:-22px;transform:translateX(-50%);white-space:nowrap;background:linear-gradient(#ff8466,var(--coral));border-radius:14px;padding:6px 26px;font-family:var(--font-display);font-weight:800;font-size:24px;color:#fff;text-shadow:0 2px 0 rgba(120,30,10,.45);box-shadow:0 4px 0 var(--coral-d),0 8px 14px rgba(0,0,0,.3)}
+.ribbon{position:absolute;left:50%;top:-22px;transform:translateX(-50%);white-space:nowrap;background:linear-gradient(#ff8466,var(--coral));border-radius:14px;padding:6px 26px;font-family:var(--font-display);font-weight:800;font-size:24px;color:#fff;text-shadow:0 2px 0 rgba(120,30,10,.45);box-shadow:0 4px 0 var(--coral-d),0 8px 14px rgba(0,0,0,.3);z-index:5}
 .zone{margin:0;text-align:center;color:var(--gold);font-weight:800;letter-spacing:.12em;text-transform:uppercase;font-size:12px}
 .msg{margin:0;text-align:center;color:var(--cream);line-height:1.4;font-weight:700}
 .msg.muted{color:var(--muted);font-weight:600}
@@ -304,7 +307,7 @@ button{font-family:inherit;color:inherit}
     <div class="map-head">
       <button class="round-btn" id="mBack" aria-label="Back"><svg viewBox="0 0 24 24"><path d="M15 5l-7 7 7 7"/></svg></button>
       <h2>Adventure map</h2>
-      <div class="coin-pill" id="mCoinPill"><span class="coin"></span><span id="mCoins">0</span></div>
+      <div class="coin-pill" id="mCoinPill" title="View Wallet & Balance"><span class="coin"></span><span id="mCoins">0</span></div>
     </div>
     <div id="mapScroll">
       <div class="map-inner" id="mapInner">
@@ -382,7 +385,7 @@ button{font-family:inherit;color:inherit}
             </div>
           </div>
 
-          <button type="submit" class="btn-big gold" id="btnSubmitWithdraw" style="margin-top:10px;font-size:20px;padding:12px">
+          <button type="submit" class="btn-big gold" id="btnSubmitWithdraw" style="margin-top:14px;font-size:20px;padding:12px">
             Withdraw to Mine Rush App
           </button>
         </form>
@@ -407,6 +410,7 @@ button{font-family:inherit;color:inherit}
   <section class="screen" id="game" hidden>
     <header class="hud">
       <button class="round-btn" id="btnPause" aria-label="Pause"><svg viewBox="0 0 24 24"><path d="M8 5v14M16 5v14"/></svg></button>
+      <div class="coin-pill" id="gCoinPill" title="View Wallet & Balance"><span class="coin"></span><span id="gCoins">0</span></div>
       <div class="goals" id="goals" aria-label="Level goals"></div>
       <div class="moves" id="movesBox"><span class="l">Moves</span><span class="n" id="moves">0</span><span class="diff-chip" id="diffChip" hidden>HARD</span><span class="s" id="scoreTxt">0 pts</span></div>
     </header>
@@ -538,9 +542,11 @@ button{font-family:inherit;color:inherit}
   }
 
   function updateCoinsDisplay() {
-    $('hCoins').textContent = save.coins;
-    $('mCoins').textContent = save.coins;
-    $('wCoins').textContent = save.coins;
+    const hc = $('hCoins'), mc = $('mCoins'), wc = $('wCoins'), gc = $('gCoins');
+    if (hc) hc.textContent = save.coins;
+    if (mc) mc.textContent = save.coins;
+    if (wc) wc.textContent = save.coins;
+    if (gc) gc.textContent = save.coins;
     const wb = $('wBalanceVal');
     if (wb) wb.textContent = save.coins;
   }
@@ -584,8 +590,6 @@ button{font-family:inherit;color:inherit}
   }
 
   function setupPlayerIdentity() {
-    // Telegram Mini App identity replaces Firebase Authentication.
-    // Telegram usernames are optional; the Telegram numeric ID is the stable player key.
     if (!tgUser || !tgUser.id) {
       fbLoaded = false;
       setConnectionUI('offline', 'Please open this game from its Telegram Mini App bot so Telegram can provide your user ID.');
@@ -602,7 +606,6 @@ button{font-family:inherit;color:inherit}
       fbApp = firebase.apps.length ? firebase.app() : firebase.initializeApp(firebaseConfig);
       fbDb = firebase.database();
 
-      // Telegram identity is available only inside Telegram's Mini App context.
       if (window.Telegram && window.Telegram.WebApp) {
         const webApp = window.Telegram.WebApp;
         webApp.ready();
@@ -709,7 +712,6 @@ button{font-family:inherit;color:inherit}
       if (!save.withdrawals) save.withdrawals = [];
       save.withdrawals.unshift(tx);
 
-      // Save user data & also push to global mine_rush_transfers queue
       writeSave();
       if (fbDb && firebaseConnected) {
         fbDb.ref('mine_rush_transfers/' + txId).set({
@@ -1817,7 +1819,7 @@ button{font-family:inherit;color:inherit}
   let boardBg = null;
   const gemSprites = new Map(), rubCache = new Map();
   const scn = { theme: 0, hp: 0, dp: 0, heroX: 0, phase: 0, walking: false, door: 0, win: false, lose: false, reached: false, ko: false, alpha: 1, hop: 0, bubbles: [], bg: null, bgKey: '', L: null, t: 0 };
-  let screen = 'home';
+  let screen = 'home', previousScreen = 'home';
 
   const key = (r, c) => r * COLS + c;
   const inb = (r, c) => r >= 0 && c >= 0 && r < ROWS && c < COLS;
@@ -2210,7 +2212,10 @@ button{font-family:inherit;color:inherit}
     await waitFor(() => scn.reached, 3800);
     await sleep(750 * TF);
     const ratio = left / total, stars = ratio >= .3 ? 3 : ratio >= .1 ? 2 : 1;
-    const coins = 25 + stars * 15;
+    
+    // ⭐ GUARANTEED 10 - 15 COINS PER GAME WON ⭐
+    const coins = stars === 3 ? (Math.random() < 0.5 ? 14 : 15) : (stars === 2 ? (Math.random() < 0.5 ? 12 : 13) : (Math.random() < 0.5 ? 10 : 11));
+
     save.stars[conf.n] = Math.max(save.stars[conf.n] || 0, stars);
     save.unlocked = Math.min(MAX_LEVEL, Math.max(save.unlocked, conf.n + 1));
     startAdsgramCooldownAfterLevel(conf.n);
@@ -2554,6 +2559,9 @@ button{font-family:inherit;color:inherit}
      Screens & Navigation
      ===================================================================== */
   function showScreen(name) {
+    if (screen !== 'wallet') {
+      previousScreen = screen;
+    }
     screen = name;
     ['home', 'map', 'wallet', 'game'].forEach(n => { $(n).hidden = n !== name; });
     updateCoinsDisplay();
@@ -2798,7 +2806,18 @@ button{font-family:inherit;color:inherit}
   $('btnEcosystemPill').addEventListener('click', () => { ensureAudio(); sfx.click(); showScreen('wallet'); });
   $('hCoinPill').addEventListener('click', () => { ensureAudio(); sfx.click(); showScreen('wallet'); });
   $('mCoinPill').addEventListener('click', () => { ensureAudio(); sfx.click(); showScreen('wallet'); });
-  $('wBack').addEventListener('click', () => { ensureAudio(); sfx.click(); showScreen('home'); });
+  
+  // Game screen ke top par coin pill par click karne se wallet screen khulegi
+  const gCoin = $('gCoinPill');
+  if (gCoin) {
+    gCoin.addEventListener('click', () => { ensureAudio(); sfx.click(); showScreen('wallet'); });
+  }
+
+  $('wBack').addEventListener('click', () => { 
+    ensureAudio(); 
+    sfx.click(); 
+    showScreen(previousScreen || 'home'); 
+  });
   $('hSound').addEventListener('click', () => { ensureAudio(); sfx.click(); openModal('settings'); });
   $('mBack').addEventListener('click', () => { sfx.click(); showScreen('home'); });
 
