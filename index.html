@@ -1561,18 +1561,18 @@
                 }
 
                 // If ads are not yet completed
-                const reqAds = State.settings.miningAdsRequired;
-                if (State.miningAdsWatched < reqAds) {
-                    try {
-                        await AdProvider.showAdsgram("19245");
-                        const newCount = State.miningAdsWatched + 1;
-                        await update(userRef, { miningAdsWatched: newCount });
-                        this.toast(`Ad viewed! (${newCount}/${reqAds})`, 'success');
-                    } catch(err) {
-                        this.toast("Ad skipped or unavailable. Try again.", "error");
-                    }
-                    return;
-                }
+const reqAds = State.settings.miningAdsRequired;
+if (State.miningAdsWatched < reqAds) {
+    try {
+        await AdProvider.showMonetag(); // <--- Monetag yaha lag gaya
+        const newCount = State.miningAdsWatched + 1;
+        await update(userRef, { miningAdsWatched: newCount });
+        this.toast(`Ad viewed! (${newCount}/${reqAds})`, 'success');
+    } catch(err) {
+        this.toast("Ad skipped or unavailable. Try again.", "error");
+    }
+    return;
+}
 
                 // Start 1-hour mining session
                 const duration = State.settings.miningDurationMs;
