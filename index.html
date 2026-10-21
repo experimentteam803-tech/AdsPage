@@ -806,23 +806,23 @@ button{font-family:inherit;color:inherit}
     }
   }
 
-  // ⭐ MONETAG ADS HELPER FUNCTIONS ⭐
+  // ⭐ MONETAG ADS HELPER (SLOW TIMING) ⭐
   function initMonetagAds() {
     try {
       if (typeof window.show_12041277 === 'function') {
         window.show_12041277({
           type: 'inApp',
           inAppSettings: {
-            frequency: 2,
-            capping: 0.1,
-            interval: 30,
-            timeout: 5,
+            frequency: 1,    // 1 ghante me max 2-3 ads
+            capping: 1,      // 1 hour capping
+            interval: 240,   // Kam se kam 4 MINUTE (240 sec) ka gap hona chahiye
+            timeout: 25,     // Game start hone ke 25 second baad hi pehla ad aane ki koshish kare
             everyPage: false
           }
         });
-        console.log('[Monetag] Auto In-App Ads Initialized');
+        console.log('[Monetag] Auto In-App Ads slowed down (4 min interval)');
       } else {
-        setTimeout(initMonetagAds, 1000);
+        setTimeout(initMonetagAds, 2000);
       }
     } catch(e) {
       console.warn('[Monetag] Init error:', e);
