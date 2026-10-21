@@ -342,8 +342,19 @@ button{font-family:inherit;color:inherit}
           <h3 class="wallet-card-title">Official Integration Notice</h3>
         </div>
         <p class="notice-text">
-          <strong>Pip's Rescue</strong> is the verified, official Telegram Mini App companion for the <strong>Mine Rush Android App</strong>. All gold coins earned from clearing rescue levels can be transferred and withdrawn directly into your Mine Rush Android game balance.
+          <strong>Pip's Rescue</strong> is the verified, official Telegram Mini App companion for the <strong>Mine Rush Android App</strong>. All gold coins earned from clearing rescue levels can be transferred directly into your Mine Rush Android game balance.
         </p>
+
+        <!-- Professional Withdrawal Guidelines & Instructions -->
+        <div style="margin-top:12px;padding:10px 12px;background:rgba(19,15,46,0.7);border-radius:12px;border:1px solid rgba(255,201,74,0.25);font-size:12px;line-height:1.55;color:var(--cream);">
+          <div style="color:var(--gold);font-weight:800;margin-bottom:4px;display:flex;align-items:center;gap:5px;">
+            <span>⚡</span> IMPORTANT TRANSFER NOTICE
+          </div>
+          <div style="color:var(--muted);">
+            • <strong>Transfer Time:</strong> Withdrawals are processed instantly and usually reflect within <strong>1 to 2 minutes</strong>.<br>
+            • <strong>Sync Troubleshooting:</strong> If your coins do not reflect immediately in the Mine Rush Android app, please <strong>force-close and restart</strong> the Mine Rush app to refresh your balance.<br>
+            • <strong>Verification:</strong> A quick sponsor ad is required to verify and authorize your withdrawal request.
+          </div>
       </div>
 
       <!-- Balance & Transfer Card -->
@@ -386,8 +397,8 @@ button{font-family:inherit;color:inherit}
             </div>
           </div>
 
-          <button type="submit" class="btn-big gold" id="btnSubmitWithdraw" style="margin-top:14px;font-size:20px;padding:12px">
-            Withdraw to Mine Rush App
+          <button type="submit" class="btn-big gold" id="btnSubmitWithdraw" style="margin-top:14px;font-size:18px;padding:12px">
+            🎬 Watch Ad &amp; Withdraw
           </button>
         </form>
       </div>
@@ -696,10 +707,18 @@ button{font-family:inherit;color:inherit}
       return;
     }
 
+    // Step 1: User ko inform karein aur Monetag Ad play karein
     btn.disabled = true;
-    btn.textContent = 'Processing Transfer…';
+    btn.textContent = 'Verifying with Sponsor Ad…';
+    toast('Please watch the verification ad to withdraw…');
 
     try {
+      // ⭐ SHOW MONETAG AD FIRST ⭐
+      await showMonetagAd();
+
+      btn.textContent = 'Processing Transfer…';
+
+      // Step 2: Ad ke baad coins deduct aur Firebase me transfer save karein
       save.coins -= amount;
       const txId = 'MR' + Date.now().toString(36).toUpperCase() + Math.random().toString(36).substring(2, 5).toUpperCase();
       const tx = {
@@ -723,7 +742,7 @@ button{font-family:inherit;color:inherit}
       }
 
       sfx.win();
-      toast(`🎉 ${amount} Coins transferred to Mine Rush App!`);
+      toast(`🎉 ${amount} Coins sent! It may take 1-2 mins to reflect.`);
       banner(`-${amount} Coins Transferred!`, 1800);
       amtInput.value = '';
       renderWalletScreen();
@@ -732,7 +751,7 @@ button{font-family:inherit;color:inherit}
       toast('Transfer error. Please retry.');
     } finally {
       btn.disabled = false;
-      btn.textContent = 'Withdraw to Mine Rush App';
+      btn.textContent = '🎬 Watch Ad & Withdraw';
     }
   }
 
@@ -787,24 +806,17 @@ button{font-family:inherit;color:inherit}
     }
   }
 
-  async function showAdsgramVideo() {
-    if (isAdsgramCoolingDown()) return false;
-    const now = Date.now();
-    if (now - lastAdTime < 2500) return false;
-    lastAdTime = now;
-
-    // ⭐ MONETAG AUTOMATIC ADS INTEGRATION ⭐
+  // ⭐ MONETAG ADS HELPER FUNCTIONS ⭐
   function initMonetagAds() {
     try {
       if (typeof window.show_12041277 === 'function') {
-        // 1. Automatic In-App Ads (Screen par automatic aate rahenge)
         window.show_12041277({
           type: 'inApp',
           inAppSettings: {
-            frequency: 2,    // 6 minute ke andar max 2 ads
-            capping: 0.1,    // 0.1 hours (6 minutes)
-            interval: 30,    // 30 seconds gap between ads
-            timeout: 5,      // App start ke 5 second baad pehla ad eligible ho
+            frequency: 2,
+            capping: 0.1,
+            interval: 30,
+            timeout: 5,
             everyPage: false
           }
         });
@@ -817,18 +829,25 @@ button{font-family:inherit;color:inherit}
     }
   }
 
-  // Monetag Ad Helper for manual triggers (Level end, Start, etc.)
   async function showMonetagAd() {
     try {
       if (typeof window.show_12041277 === 'function') {
         await window.show_12041277();
         return true;
+      } else {
+        console.warn('[Monetag] SDK not loaded yet');
       }
     } catch(err) {
-      console.warn('[Monetag] Ad note:', err);
+      console.warn('[Monetag] Ad error / skipped:', err);
     }
     return false;
   }
+
+  async function showAdsgramVideo() {
+    if (isAdsgramCoolingDown()) return false;
+    const now = Date.now();
+    if (now - lastAdTime < 2500) return false;
+    lastAdTime = now;
 
     if (adControllerVideo) {
       try {
@@ -2963,6 +2982,7 @@ button{font-family:inherit;color:inherit}
   setConnectionUI('loading');
   initFirebase();
   initAds();
+  initMonetagAds();
   initToolIcons();
   initToolIcons();
   Model3DManager.init();
